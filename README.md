@@ -3,7 +3,9 @@
 This online Journal lets you keep record of anything you want, whether it's quick little notes, lists of things you have to do, personal secrets/thoughts, or anything else that you find interesting enough to enter in.
 
 Users can register and login. Users can name their Journal and create entries in their journals. You can also create pin a location on a map and make an entry based on that. Maybe you have a nice lunch somewhere, or found a shiny penny, or saw a cute dog.
-((Thinking about implementing this but not sure yet: You can chose if you'd like your Journal posts to be private or public. Private means they'll only be seen by you, and public means anyone on the site will be able to view them. If you don't have an account, you'll only be able to view other people's jounral entries. Features will include things like text posts, the ability to create lists, uploading images (?), and more (maybe)!))
+((Thinking about implementing this but not sure yet: You can chose if you'd like your Journal posts to be private or public. Private means they'll only be seen by you, and public means anyone on the site will be able to view them. If you don't have an account, you'll only be able to view other people's jounral entries.))
+
+Features will include things like text posts, the ability to create lists, uploading images (?), and more (maybe)!
 
 Tell your Diary all the things you're too embarassed to tell your friends.
 ## Data Model
