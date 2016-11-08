@@ -46,11 +46,9 @@ var Post = new mongoose.Schema({
 ```
 
 ## Wireframes
-/journal/login - login page
-
-
 /journal/my-journal - page for showing user's journal
 
+/journal/my-journal/create - creating new entry
 
 /journal/my-journal/slug - page for showing a specific post
 
