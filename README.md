@@ -47,19 +47,19 @@ var Post = new mongoose.Schema({
 
 ## Wireframes
 /journal/my-journal - page for showing user's journal
-![my-journal](documentation/three.png)
+![my-journal](final-project/documentation/three.png)
 
 /journal/my-journal/create - creating new entry
-![my-journa create](documentation/one.png)
+![my-journa create](final-project/documentation/one.png)
 
 /journal/my-journal/slug - page for showing a specific post
-![my-journal slug](documentation/four.png)
+![my-journal slug](final-project/documentation/four.png)
 
 /journal/my-journal/slug/edit - page to edit a specific post
-![my-journal slug edit](documentation/two.png)
+![my-journal slug edit](final-project/documentation/two.png)
 
 ## Site map
-![sitemap](documentation/sitemap.png)
+![sitemap](final-project/documentation/sitemap.png)
 
 ## User stories
 
