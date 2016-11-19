@@ -1,0 +1,36 @@
+<h1>View Posts</h1>
+<a href="/">Go to Homepage</a><br>
+<a href="/view-posts">Go to Entry List</a><br><br><br>
+
+
+{{#post}}
+<b><a href="/view-posts/{{slug}}">  {{title}}</a></b><br>
+	{{date}} <br>
+	{{location}} <br>
+	<p>
+	{{content}}
+	<br><br></p>
+
+{{/post}}
+
+
+
+<div id="map" style="height:300px;width:400px"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+
+     <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS0HrvVPJdk3694yzhfBM3g-gfMd3YKfk&callback=initMap">
+    </script>
+
+   <br>
+{{#post}}
+<a href="/edit/{{slug}}">  Edit this entry</a><br>
+{{/post}}

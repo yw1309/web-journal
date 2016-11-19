@@ -1,0 +1,10 @@
+<h1>View Posts</h1>
+<a href="/">Go to Homepage</a><br><br><br>
+
+
+{{#posts}}
+<b><a href="/view-posts/{{slug}}">{{title}}</a></b><br>
+	{{date}} <br>
+	{{location}} <br>
+	<br><br>
+{{/posts}}

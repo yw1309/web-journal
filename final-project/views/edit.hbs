@@ -1,0 +1,20 @@
+<h1>Edit Entry</h1>
+<a href="/">Go to Homepage</a><br>
+
+{{#post}}
+
+<h2>Editing "{{slug}}"</h2>
+
+<form method="POST" id="newpost" action="/update/{{slug}}">
+Title: <input type="text" name="title" value="{{title}}"> <br>
+Location: <input type="text" name="location" value="{{location}}"> <br>
+(currently the map on the "view post" page doesn't show the current location but it will be implemented later!!) <br>
+
+Entry: <textarea rows="20" cols="50" name="content" form="newpost">{{content}}</textarea> <br>
+<input type="checkbox" name="check" value="public"> Public <br><br>
+
+<input type="submit" value="Edit Entry">
+</form>
+
+
+{{/post}}
