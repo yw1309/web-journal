@@ -26,7 +26,7 @@ router.post('/add-post', function(req, res, next) {
 		res.redirect('/view-posts');
 	});
 
-});
+}); 
 
 
 router.get('/view-posts', function(req, res, next) {	
