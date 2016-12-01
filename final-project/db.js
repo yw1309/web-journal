@@ -3,25 +3,41 @@
 var mongoose = require('mongoose'), 
 URLSlugs = require('mongoose-url-slugs');
 
-// my schema goes here!
+var User = new mongoose.Schema({
+  username: {type: String},
+  password: {type: String}
+});
+
+var Comment = new mongoose.Schema({
+  poster: [User],
+  content: {type: String, required: true},
+});
+
 var Post = new mongoose.Schema({
-  user: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+  // user: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+  user: [User],
   title: {type: String, required: true},
-  location: {type: String, required: true},
+  location: {type: String, required: true}, // change this
   date: {type: Date, default: Date.now},
   content: {type: String, required: true},
   public: {type: Boolean, default: false},
+  comments: [Comment],
+  edited: {type: Boolean, default: false},
 });
 
-var Homepage = new mongoose.Schema({
-  name: {type: String},
-  posts: [Post]
-});
+// var Homepage = new mongoose.Schema({
+//   name: {type: String},
+//   posts: [Post]
+// });
+
+
 
 Post.plugin(URLSlugs('title'));
 
 mongoose.model('Post', Post);
-mongoose.model('Homepage', Homepage);
+// mongoose.model('Homepage', Homepage);
+mongoose.model('User', User);
+mongoose.model('Comment', Comment);
 
 // is the environment variable, NODE_ENV, set to PRODUCTION? 
 if (process.env.NODE_ENV == 'PRODUCTION') {

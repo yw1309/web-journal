@@ -2,7 +2,7 @@ var db = require('.././db');
 var mongoose = require('mongoose');
 
 var Post = mongoose.model('Post');
-var Homepage = mongoose.model('Homepage');
+// var Homepage = mongoose.model('Homepage');
 
 var express = require('express');
 var router = express.Router();
