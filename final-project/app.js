@@ -1,3 +1,6 @@
+require('./db');
+require('./auth');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -5,6 +8,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+
+
+var session = require('express-session');
+var sessionOptions = {
+	secret: 'secret for signing session id',
+	resave: true,
+	saveUninitialized: true
+};
+app.use(session(sessionOptions));
+
 
 var index = require('./routes/index');
 // var users = require('./routes/users');

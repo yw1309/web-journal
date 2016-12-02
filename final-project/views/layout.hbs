@@ -5,6 +5,10 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+  	{{#if user}}
+		Logged in as {{user.username}}
+	{{/if}}
+	
     {{{body}}}
   </body>
 </html>

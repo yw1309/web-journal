@@ -2,10 +2,11 @@
 
 var mongoose = require('mongoose'), 
 URLSlugs = require('mongoose-url-slugs');
+var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new mongoose.Schema({
-  username: {type: String},
-  password: {type: String}
+  // username: {type: String},
+  // password: {type: String}
 });
 
 var Comment = new mongoose.Schema({
@@ -31,7 +32,7 @@ var Post = new mongoose.Schema({
 // });
 
 
-
+User.plugin(passportLocalMongoose);
 Post.plugin(URLSlugs('title'));
 
 mongoose.model('Post', Post);
