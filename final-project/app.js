@@ -13,7 +13,6 @@ var passport = require('passport');
 
 var app = express();
 
-
 var session = require('express-session');
 var sessionOptions = {
   secret: 'secret for signing session id',
@@ -24,7 +23,6 @@ app.use(session(sessionOptions));
 
 var index = require('./routes/index');
 // var users = require('./routes/users');
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,8 +46,6 @@ app.use(function(req, res, next){
 
 app.use('/', index);
 // app.use('/users', users);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
