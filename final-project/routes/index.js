@@ -11,6 +11,7 @@ var User = mongoose.model('User');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	console.log("res.locals.user",res.locals.user);
 	res.render('index');
 });
 
@@ -20,12 +21,17 @@ router.get('/login', function(req, res) {
 
 router.post('/login', function(req,res,next) {
   passport.authenticate('local', function(err,user) {
+      	console.log('@@@@@@@@@@@@@@@@ check if user');
+
     if(user) {
+      	console.log('user:',user.username,user.password);
+
       req.logIn(user, function(err) {
+      	console.log('logging in/redirecting');
         res.redirect('/');
       });
     } else {
-      res.render('login', {message:'Your login or password is incorrect.'});
+      res.render('login', {message:'Your username or password is incorrect.'});
     }
   })(req, res, next);
 });
@@ -38,8 +44,10 @@ router.post('/register', function(req, res) {
   User.register(new User({username:req.body.username}), 
       req.body.password, function(err, user){
     if (err) {
-      res.render('register',{message:'Your registration information is not valid'});
+      res.render('register',{message:'Your registration information is not valid. Try picking a different username.'});
     } else {
+    	console.log("reg user:",User.username,User.password)
+    	console.log("reg user:",user.username,user.password)
       passport.authenticate('local')(req, res, function() {
         res.redirect('/');
       });

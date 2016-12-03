@@ -16,9 +16,9 @@ var app = express();
 
 var session = require('express-session');
 var sessionOptions = {
-  secret: 'secret for signing session id',
-  resave: true,
-  saveUninitialized: true
+	secret: 'secret for signing session id',
+	resave: true,
+	saveUninitialized: true
 };
 app.use(session(sessionOptions));
 

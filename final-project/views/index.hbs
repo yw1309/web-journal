@@ -1,6 +1,19 @@
-<h1>Welcome!</h1>
-<p>Welcome to Your Homepage <br><br>
+<h1>Welcome to Your Online Journal!</h1>
+{{#if user}}
+Welcome {{user.username}}!<br><br>
 
-<a href="/new-post">Click here to make a new entry</a><br><br>
-<a href="/view-posts">Click here to view your entries</a>
+<a href="/">Go to Homepage</a><br>
+<a href="/view-posts">Go to Entry List</a><br><br><br>
+
+{{else}}
+
+<a href="/login">Login</a><br><br>
+<a href="/register">Register</a>
+
+
+{{/if}}
+
+
+
+
 </p>
