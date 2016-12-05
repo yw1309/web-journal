@@ -67,6 +67,10 @@ router.post('/add-post', function(req, res, next) {
 
 }); 
 
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 router.get('/view-posts', function(req, res, next) {	
 	Post.find(function(err, posts, count) {
