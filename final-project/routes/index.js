@@ -1,5 +1,6 @@
 var db = require('.././db');
 var mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
 
 var Post = mongoose.model('Post');
 // var Homepage = mongoose.model('Homepage');
@@ -96,10 +97,24 @@ router.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-router.get('/view-posts', function(req, res, next) {	
-	Post.find(function(err, posts, count) {
+router.get('/feed', function(req, res, next) {	
+	// var userID = req.user._id;
+
+	Post.find({'public':true}, function(err, posts, count) {
 		res.render( 'view', {'slug': posts.slug, 'posts': posts});
 	});
+});
+
+router.get('/view-posts', function(req, res, next) {	
+	var userID = req.user._id;
+	console.log(userID,"userID");
+	Post.find({'author' : ObjectId(userID)}, function(err, posts, count) {
+		res.render( 'view', {'slug': posts.slug, 'posts': posts});
+	});
+
+	// Post.find(function(err, posts, count) {
+	// 	res.render( 'view', {'slug': posts.slug, 'posts': posts});
+	// });
 });
 
 router.get('/view-posts/:slug', function(req, res, next) {

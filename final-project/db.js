@@ -11,10 +11,11 @@ var User = new mongoose.Schema({
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 });
 
-var Comment = new mongoose.Schema({
-  poster: [User],
-  content: {type: String, required: true},
-});
+// var Comment = new mongoose.Schema({
+//   author: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+//   // poster: [User],
+//   content: {type: String, required: true},
+// });
 
 var Post = new mongoose.Schema({
   author: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
@@ -24,7 +25,7 @@ var Post = new mongoose.Schema({
   date: {type: Date, default: Date.now},
   content: {type: String, required: true},
   public: {type: Boolean, default: false},
-  comments: [Comment],
+  // comments: [Comment],
   edited: {type: String, default: ""},
 });
 
@@ -40,7 +41,7 @@ Post.plugin(URLSlugs('title'));
 mongoose.model('Post', Post);
 // mongoose.model('Homepage', Homepage);
 mongoose.model('User', User);
-mongoose.model('Comment', Comment);
+// mongoose.model('Comment', Comment);
 
 // is the environment variable, NODE_ENV, set to PRODUCTION? 
 if (process.env.NODE_ENV == 'PRODUCTION') {
