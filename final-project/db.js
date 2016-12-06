@@ -8,7 +8,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var User = new mongoose.Schema({
   // username: {type: String},
   // password: {type: String}
-  // posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+  posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 });
 
 var Comment = new mongoose.Schema({
@@ -17,8 +17,8 @@ var Comment = new mongoose.Schema({
 });
 
 var Post = new mongoose.Schema({
-  // user: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  author: [User],
+  author: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+  // author: [User],
   title: {type: String, required: true},
   location: {type: String, required: true}, // change this
   date: {type: Date, default: Date.now},

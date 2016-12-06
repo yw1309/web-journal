@@ -58,10 +58,16 @@ router.get('/new-post', function(req, res, next) {
 
 router.post('/add-post', function(req, res, next) {
 	console.log('req.user', req.user);
+	var pub = false;
+	if (req.body.check != undefined){
+		var pub = true;
+	}
+
 	var newPost = new Post({
 		title: req.body.title,
 		location: req.body.location,
 		content: req.body.content,
+		public: pub,
 		author: req.user,
 	})
 
@@ -70,9 +76,19 @@ router.post('/add-post', function(req, res, next) {
 		if (err){
 			console.log(err);
 		}
-		res.redirect('/view-posts');
+		// res.redirect('/view-posts');
 	});
 
+	var currentUser = req.user;
+	currentUser.posts.push(newPost);
+
+	currentUser.save(function(err, post){
+	// console.log(req.user);
+		if (err){
+			console.log(err);
+		}
+		res.redirect('/view-posts'); 
+	}); 
 }); 
 
 router.get('/logout', function(req, res){
