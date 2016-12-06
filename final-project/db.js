@@ -21,7 +21,7 @@ var Post = new mongoose.Schema({
   author: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
   // author: [User],
   title: {type: String, required: true},
-  location: {type: String, required: true}, // change this
+  location: {type: String}, // change this
   date: {type: Date, default: Date.now},
   content: {type: String, required: true},
   public: {type: Boolean, default: false},

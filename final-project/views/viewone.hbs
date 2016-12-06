@@ -1,6 +1,7 @@
 <h1>View Posts</h1>
 <a href="/">Go to Homepage</a><br>
-<a href="/view-posts">Go to Entry List</a><br><br><br>
+<a href="/personal">Go to Your Posts</a><br>
+<a href="/feed">Go to Public Posts</a><br><br><br>
 
 
 {{#post}}
@@ -32,6 +33,8 @@
     </script>
 
    <br>
+{{#if canEdit}}
 {{#post}}
 <a href="/edit/{{slug}}">  Edit this entry</a><br>
 {{/post}}
+{{/if}}
