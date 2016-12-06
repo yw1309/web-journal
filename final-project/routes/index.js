@@ -57,11 +57,19 @@ router.get('/new-post', function(req, res, next) {
 });
 
 router.post('/add-post', function(req, res, next) {
-	new Post({
+	console.log('req.user', req.user);
+	var newPost = new Post({
 		title: req.body.title,
 		location: req.body.location,
-		content: req.body.content
-	}).save(function(err, post){
+		content: req.body.content,
+		author: req.user,
+	})
+
+	newPost.save(function(err, post){
+		console.log("newPost",newPost);
+		if (err){
+			console.log(err);
+		}
 		res.redirect('/view-posts');
 	});
 
@@ -92,11 +100,18 @@ router.get('/edit/:slug', function(req, res, next) {
 });
 
 router.post('/update/:slug', function(req, res, next) {
+	var pub = false;
+	if (req.body.check != undefined){
+		var pub = true;
+	}
 	Post.findOneAndUpdate({'slug' : req.params.slug}, 
-		{$set: {title: req.body.title, location: req.body.location, 
-			content: req.body.content}},
-		function(err, posts, count) {
-
+		{$set: {
+			title: req.body.title, 
+			location: req.body.location, 
+			content: req.body.content,
+			public: pub,
+			edited: "edited",
+		}},function(err, posts, count) {
 			var strURL = '/view-posts/'+req.params.slug;
 			res.redirect(strURL);
 		});

@@ -2,11 +2,13 @@
 
 var mongoose = require('mongoose'), 
 URLSlugs = require('mongoose-url-slugs');
+var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new mongoose.Schema({
   // username: {type: String},
   // password: {type: String}
+  // posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 });
 
 var Comment = new mongoose.Schema({
@@ -16,14 +18,14 @@ var Comment = new mongoose.Schema({
 
 var Post = new mongoose.Schema({
   // user: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  user: [User],
+  author: [User],
   title: {type: String, required: true},
   location: {type: String, required: true}, // change this
   date: {type: Date, default: Date.now},
   content: {type: String, required: true},
   public: {type: Boolean, default: false},
   comments: [Comment],
-  edited: {type: Boolean, default: false},
+  edited: {type: String, default: ""},
 });
 
 // var Homepage = new mongoose.Schema({
