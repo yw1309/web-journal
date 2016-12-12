@@ -1,11 +1,9 @@
+<div class="message">
 <h1>View Posts</h1>
-<a href="/">Go to Homepage</a><br>
-<a href="/personal">Go to Your Posts</a><br>
-<a href="/feed">Go to Public Posts</a><br><br><br>
+</div>
 
 {{#posts}}
+<br><br>
 <b><a href="/view-posts/{{slug}}">{{title}}</a></b><br>
-	{{date}} <br>
-	{{location}} <br>
-	<br><br>
+	{{date}} 
 {{/posts}}

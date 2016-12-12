@@ -1,21 +1,20 @@
+<div class="message">
 <h1>View Posts</h1>
-<a href="/">Go to Homepage</a><br>
-<a href="/personal">Go to Your Posts</a><br>
-<a href="/feed">Go to Public Posts</a><br><br><br>
-
+</div>
 
 {{#post}}
+<br><br>
 <b><a href="/view-posts/{{slug}}">  {{title}}</a></b> {{edited}}<br>
 {{/post}}
 
   {{#user}}
-  Author: <a href="/profile/{{username}}">{{username}}</a> <br>
+  <b>Author:</b> <a href="/profile/{{username}}">{{username}}</a> <br>
   {{/user}}
 
   {{#post}}
-	Date: {{date}} <br>
+	<b>Date:</b> {{date}} <br>
 	<p>
-	{{content}}
+	"{{content}}"
 	<br><br></p>
 
 {{/post}}
