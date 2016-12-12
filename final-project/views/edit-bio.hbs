@@ -1,0 +1,22 @@
+<h1>Edit Bio</h1>
+<a href="/">Go to Homepage</a><br>
+<a href="/profile">Go to Back to Profile</a><br><br>
+
+
+<h2>Editing Your Bio</h2>
+
+
+
+<form method="POST" id="editbio" action="/update-bio">
+
+About Yourself: <textarea rows="20" cols="50" name="about" form="editbio">{{user.bio}}</textarea> <br>
+
+<input type="submit" value="Edit Bio">
+</form>
+
+
+<br><br>
+
+<a href="/profile">Back</a><br><br>
+
+

@@ -4,11 +4,12 @@ var ObjectId = require('mongodb').ObjectID;
 
 var Post = mongoose.model('Post');
 // var Homepage = mongoose.model('Homepage');
+var User = mongoose.model('User');
+// var User = mongoose.model('Bio');
 
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var User = mongoose.model('User');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -139,42 +140,169 @@ router.get('/view-posts/:slug', function(req, res, next) {
 			console.log("req.user._id",req.user._id);
 
 			if (String (post[0].author) == String(req.user._id)) {
-			console.log("inside");
+				console.log("inside");
 
 				canEdit = true;
 			}
 		}
-		console.log("canEdit",canEdit);
+		var authorID = post[0].author;
+		console.log(authorID);
+		
+		// User.find({'author' : ObjectId(userID)}, function(err, posts, count) {
+		// 	res.render( 'view', {'slug': posts.slug, 'posts': posts});
+		// });
+	
 
-		res.render('viewone', {slug: post.slug,'post': post, 'canEdit': canEdit});
-	});
-	});
+	User.find({'_id':ObjectId(post[0].author)}, function(err, user, count) {
+		console.log(user);
+			// var authorName = user[0].username;
+			// console.log(postID);
+			console.log(user[0].username);
+			res.render('viewone', {slug: post.slug,'user':user,'post': post, 'canEdit': canEdit});
+
+		});
+
+});
+});
 
 
-	router.get('/edit/:slug', function(req, res, next) {
+router.get('/edit/:slug', function(req, res, next) {
+	if (req.user == null) {
+		res.redirect('/');
+
+	}
+	else {
 		Post.find({'slug' : req.params.slug}, function(err, post, count) {
 			res.render('edit', {slug: post.slug,'post': post});
 		});
-	});
+	}
+});
 
-	router.post('/update/:slug', function(req, res, next) {
-		var pub = false;
-		if (req.body.check != undefined){
-			var pub = true;
-		}
-		Post.findOneAndUpdate({'slug' : req.params.slug}, 
-			{$set: {
-				title: req.body.title, 
-				location: req.body.location, 
-				content: req.body.content,
-				public: pub,
-				edited: "edited",
-			}},function(err, posts, count) {
-				var strURL = '/view-posts/'+req.params.slug;
-				res.redirect(strURL);
+router.post('/update/:slug', function(req, res, next) {
+	var pub = false;
+	if (req.body.check != undefined){
+		var pub = true;
+	}
+	Post.findOneAndUpdate({'slug' : req.params.slug}, 
+		{$set: {
+			title: req.body.title, 
+			location: req.body.location, 
+			content: req.body.content,
+			public: pub,
+			edited: "edited",
+		}},function(err, posts, count) {
+			var strURL = '/view-posts/'+req.params.slug;
+			res.redirect(strURL);
+		});
+});
+
+
+router.get('/profile/', function(req, res, next) {
+	if (req.user == null) {
+		res.redirect('/');
+	}
+	else {
+		var url = '/profile/' + req.user.username;
+		res.redirect(url);
+	}
+});
+
+
+router.get('/profile/:username', function(req, res, next) {
+	if (req.user == null) {
+		res.redirect('/');
+	}
+	else {
+		
+		var userID = req.user._id;
+		console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQ");
+
+		// console.log("postArr mid", postsArr);
+		// otherStuff();
+
+	var postsArr = [];
+		Post.find({'author' : ObjectId(userID)}, function(err, posts, count) {
+
+			console.log("post", posts);
+
+			// postsArr = posts;
+			// console.log("postArr in", postsArr);
+
+			var contentArr = posts.map(function(post) {
+			return post.content;
 			});
+			console.log("contentArr in", contentArr);
 
-	});
+			if (contentArr.length !== 0) {
+			
+				var wordsInEach = contentArr.map(function(str) {
+						return str.split(' ').length;
+					});
+
+				var totalWords = wordsInEach.reduce(function(a, b){ 
+						return parseInt(a) + parseInt(b);
+					});
+
+				var charsInEach = contentArr.map(function(str) {
+						return str.length;
+					});
+
+				var totalChars = charsInEach.reduce(function(a, b){ 
+						return parseInt(a) + parseInt(b);
+					});
+
+				var moreThanTenWords = wordsInEach.filter(hasMoreThanTenWords);
+				console.log("moreThanTenWords in", moreThanTenWords);
+
+				var numPostsTenWords = moreThanTenWords.length;
+
+				function hasMoreThanTenWords(words) {
+						return words >= 10;
+				}
+
+			}
+			else {
+				var totalWords = 0;
+				var totalChars = 0;
+				var numPostsTenWords = 0;
+			}
+			
+
+			res.render('profile', {'user': req.user, 'totalWords':totalWords,
+				'totalChars':totalChars,'numPostsTenWords':numPostsTenWords} );
 
 
-	module.exports = router;
+		});
+
+
+		console.log("end");
+
+		
+		
+	} // else
+});
+
+router.get('/edit-profile', function(req, res, next) {
+	if (req.user == null) {
+		res.redirect('/');
+
+	}
+	else {
+		res.render('edit-bio', {'user': req.user});
+	}
+});
+
+router.post('/update-bio', function(req, res, next) {
+	User.findOneAndUpdate({'_id':ObjectId(req.user._id)}, {
+		$set: {
+			bio: req.body.about, 
+		}},function(err, posts, count) {
+			var strURL = '/profile';
+			res.redirect(strURL);
+		});
+
+		
+});
+
+
+module.exports = router;

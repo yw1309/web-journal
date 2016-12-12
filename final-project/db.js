@@ -9,19 +9,13 @@ var User = new mongoose.Schema({
   // username: {type: String},
   // password: {type: String}
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+  bio : { type: String, default: "Welcome to my profile!" },
 });
-
-// var Comment = new mongoose.Schema({
-//   author: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-//   // poster: [User],
-//   content: {type: String, required: true},
-// });
 
 var Post = new mongoose.Schema({
   author: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
   // author: [User],
   title: {type: String, required: true},
-  location: {type: String}, // change this
   date: {type: Date, default: Date.now},
   content: {type: String, required: true},
   public: {type: Boolean, default: false},
@@ -29,19 +23,15 @@ var Post = new mongoose.Schema({
   edited: {type: String, default: ""},
 });
 
-// var Homepage = new mongoose.Schema({
-//   name: {type: String},
-//   posts: [Post]
-// });
 
 
 User.plugin(passportLocalMongoose);
+// User.plugin(URLSlugs('username'));
 Post.plugin(URLSlugs('title'));
 
 mongoose.model('Post', Post);
-// mongoose.model('Homepage', Homepage);
 mongoose.model('User', User);
-// mongoose.model('Comment', Comment);
+// mongoose.model('Bio', Bio);
 
 // is the environment variable, NODE_ENV, set to PRODUCTION? 
 if (process.env.NODE_ENV == 'PRODUCTION') {

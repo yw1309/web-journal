@@ -1,7 +1,10 @@
 <h1>Edit Entry</h1>
-<a href="/">Go to Homepage</a><br>
+<a href="/">Go to Homepage</a><br><br>
+
 
 {{#post}}
+<a href="/view-posts/{{slug}}">Back</a><br>
+
 
 <h2>Editing "{{slug}}"</h2>
 
@@ -17,4 +20,9 @@ Entry: <textarea rows="20" cols="50" name="content" form="newpost">{{content}}</
 </form>
 
 
+<br><br>
+<a href="/view-posts/{{slug}}">Back</a><br>
+
 {{/post}}
+
+
