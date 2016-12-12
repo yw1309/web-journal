@@ -1,20 +1,16 @@
 # Journal WebApp
 ## Overview
-This online Journal lets you keep record of anything you want, whether it's quick little notes, lists of things you have to do, personal secrets/thoughts, or anything else that you find interesting enough to enter in.
+This online Journal lets you keep record of little notes, or long notes, if you prefer. You can write about your day, your angst, or anything at all!
 
-Users can register and login. Users can name their Journal and create entries in their journals. You can also create pin a location on a map and make an entry based on that. Maybe you have a nice lunch somewhere, or found a shiny penny, or saw a cute dog.
-((Thinking about implementing this but not sure yet: You can chose if you'd like your Journal posts to be private or public. Private means they'll only be seen by you, and public means anyone on the site will be able to view them. If you don't have an account, you'll only be able to view other people's jounral entries.))
+Users can register and login. Once they have an account, they can create entries in their journals and edit previous posts. Users can set their entries to be public, which means they can be seen by anyone looking at the site. By defualt, posts are private unless specifically set as public. Private means only the user who created the post will be able to see it. You can still view public jounral entries even if you aren't logged in or if you don't have an account.
 
-Features will include things like text posts, the ability to create lists, uploading images (?), and more (maybe)!
+Users can also edit their profile to include a bio. Their profile page will also show some statistics regarding how many words they've typed, etc.
 
-Tell your Diary all the things you're too embarassed to tell your friends.
+Tell your Journal all the things you're too embarassed to tell your friends.
 ## Data Model
-We'll store users, homepage and posts. (Data model subject to change depending on how well this works out.)
-* users will have 1 homepage
-* each homepage will list the user's posts
-  * changes depending on if it's public/private
-  
-May have to add more documents like lists, etc.
+We'll store users and posts as Mongoose schemas.
+* each User has a username, password, bio, and an array of Posts they've written
+* each Post has a title, content, date, private/public, is edited, and author (User)
 
 First draft schema:
 
@@ -25,23 +21,18 @@ First draft schema:
 // * users may have posts or not
 var User = new mongoose.Schema({
   // username, password provided by plugin
-  homepage:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Homepage' }]
-});
-
-// homepage that shows the user's posts
-// * includes title of journal (if user named it)
-// * includes list of posts user has made
-var Homepage = new mongoose.Schema({
-  name: {type: String},
-  posts: [Post]
+  posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+  bio : { type: String, default: "Welcome to my profile!" },
 });
 
 // a post
 var Post = new mongoose.Schema({
-  user: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+  author: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
   title: {type: String, required: true},
   date: (type: Date, required: true),
-  content: {type: String, required: true}
+  content: {type: String, required: true},
+  public: {type: Boolean, default: false},
+  edited: {type: String, default: ""},
 });
 ```
 
@@ -63,22 +54,20 @@ var Post = new mongoose.Schema({
 
 ## User stories
 
-1. as a user, I can create a journal
+1. as a user, I can create an account and a journal
 2. as a user, I can create an entry in my journal
-2. as a user, I can pin a location on a map and make a note
 3. as a user, I can edit an entry in my journal
 4. as a user, I can view the entries in my journal and recount memorable memories
-5. as a user, I can view other people's entries (maybe)
+5. as a user, I can view other people's entries
+5. as a user, I can edit my profile bio
+5. as a user, I can view statistics regarding my posts
 
 ## Research Topics
 
 * (6 points) Integrate user authentication
     * passport for user authentication
-* (2 points) Google Maps API (or another nifty map library)
-    * access user's location to include in jounral entry (if they want)
-    * using it as a map interface so that users can pin locations and make entries
-    * set it to 2 points because integration probably won't be too hard
-* (4 points) Unit testing - Mocha
-    * only doing this in case previous topics aren't worth 8 points already
-
+    * register/login/logout functions
+* (2 points or more) Bootstrap CSS (and JS)
+    * used Bootstrap classes to make a simple & cohesive template
+    * included JavaScript/JQuery for additional features
 
