@@ -23,6 +23,17 @@ var Post = new mongoose.Schema({
   edited: {type: String, default: ""},
 });
 
+Post.pre('validate', function (next) {
+  console.log('this.title',this.title);
+  if (!this.title) {
+    this.title = "New Post";
+  }
+  if (!this.content) {
+    this.content = "Hello World!";
+  }
+  next();
+})
+
 
 
 User.plugin(passportLocalMongoose);

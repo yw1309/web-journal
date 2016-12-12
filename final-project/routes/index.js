@@ -96,7 +96,7 @@ router.post('/add-post', function(req, res, next) {
 	if (err){
 		console.log(err);
 	}
-	res.redirect('/view-posts'); 
+	res.redirect('/personal'); 
 }); 
 }); 
 
