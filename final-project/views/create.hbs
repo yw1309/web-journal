@@ -1,21 +1,16 @@
+<div class="message">
 <h1>Create a New Post</h1>
+</div>
+
 
 <form method="POST" id="newpost" action="/add-post">
-Title: <input type="text" name="title" > <br>
+<br><br>
+Title: <input type="text name="title" > <br><br>
 
 Entry: <textarea rows="20" cols="50" name="content" form="newpost"></textarea> <br><br>
 <input type="checkbox" name="check" value="public"> Public <br><br>
 
-Your location:<br>
-<div id="map" style="height:300px;width:400px"></div>
-
-<br><br>
 <input type="submit" value="Create Post">
 </form>
 
-
-{{!-- The following code is based on this tutorial:
-https://developers.google.com/maps/documentation/javascript/geolocation --}}
-
-
-
+<br><br><br>

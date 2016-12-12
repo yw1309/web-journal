@@ -283,11 +283,12 @@ router.get('/profile/:username', function(req, res, next) {
 });
 
 router.get('/edit-profile', function(req, res, next) {
+
 	if (req.user == null) {
 		res.redirect('/');
 
 	}
-	else {
+	else{
 		res.render('edit-bio', {'user': req.user});
 	}
 });

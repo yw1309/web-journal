@@ -1,0 +1,75 @@
+body {
+	padding-top: 50px;
+}
+.message {
+	padding: 10px 15px;
+	text-align: center;
+	background: #bbb;
+}
+
+.message2 {
+	padding: 10px 15px;
+	text-align: center;
+	background: #ccc;
+}
+
+.message3 {
+	padding: 20px 15px;
+	text-align: center;
+	background: #ddd;
+}
+
+.container {
+	font-size: 17px;
+
+}
+textarea {
+    resize: none;
+     -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-color: gray;
+}
+
+input {
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-color: lightgray;
+}
+
+input:focus {
+    border-color:#333;
+}
+
+input[type=submit] {
+    background: black; 
+    color: lightgray;
+    border-color: black;
+
+}
+
+
+h2.featurette-heading { 
+	margin-top: 0px;
+}
+
+.carousel-inner > .item > img {
+	margin: 0 auto;
+}
+
+
+
+   .carousel-control.left, .carousel-control.right {
+   	background-image: none
+   }
+
+   .message{
+   	margin-bottom: 
+   }
+
+
+  /* .btn-primary { 
+   	background-color:  #333; 
+   	border-color: gray;
+   	color: #ccc;
+   	}  */
