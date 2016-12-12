@@ -150,7 +150,20 @@ router.get('/edit/:slug', function(req, res, next) {
 	}
 	else {
 		Post.find({'slug' : req.params.slug}, function(err, post, count) {
-			res.render('edit', {slug: post.slug,'post': post});
+			if (req.user !== undefined) {
+				console.log("inside1 edit");
+				console.log("post[0].author",post[0].author);
+				console.log("req.user._id",req.user._id);
+
+				if (String (post[0].author) == String(req.user._id)) {
+					console.log("inside edit");
+					res.render('edit', {slug: post.slug,'post': post});
+				}
+				else {
+					res.redirect('/feed');
+
+				}
+			}
 		});
 	}
 });
@@ -199,7 +212,7 @@ router.get('/profile/:username', function(req, res, next) {
 			});
 
 			if (contentArr.length !== 0) {
-				
+
 				var wordsInEach = contentArr.map(function(str) {
 					return str.split(' ').length;
 				});
@@ -256,7 +269,7 @@ router.post('/update-bio', function(req, res, next) {
 			var strURL = '/profile';
 			res.redirect(strURL);
 		});
-	
+
 });
 
 
