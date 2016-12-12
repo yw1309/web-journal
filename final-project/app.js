@@ -1,4 +1,4 @@
-//
+//app.js
 require('./db');
 require('./auth');
 
@@ -22,7 +22,6 @@ var sessionOptions = {
 app.use(session(sessionOptions));
 
 var index = require('./routes/index');
-// var users = require('./routes/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,13 +38,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// so that user is available to rest of scripts/hbs
 app.use(function(req, res, next){
   res.locals.user = req.user;
   next();
 });
 
 app.use('/', index);
-// app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

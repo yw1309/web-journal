@@ -3,9 +3,7 @@ var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectID;
 
 var Post = mongoose.model('Post');
-// var Homepage = mongoose.model('Homepage');
 var User = mongoose.model('User');
-// var User = mongoose.model('Bio');
 
 var express = require('express');
 var router = express.Router();
@@ -13,7 +11,6 @@ var passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	console.log("res.locals.user",res.locals.user);
 	res.render('index');
 });
 
@@ -53,15 +50,12 @@ router.post('/register', function(req, res) {
 });
 
 
-
 router.get('/new-post', function(req, res, next) {
 	if (req.user == null) {
 		res.redirect('/');
-
 	}
 	else {
 		res.render('create');
-
 	}
 });
 
@@ -92,12 +86,11 @@ router.post('/add-post', function(req, res, next) {
 	currentUser.posts.push(newPost);
 
 	currentUser.save(function(err, post){
-	// console.log(req.user);
-	if (err){
-		console.log(err);
-	}
-	res.redirect('/personal'); 
-}); 
+		if (err){
+			console.log(err);
+		}
+		res.redirect('/personal'); 
+	}); 
 }); 
 
 router.get('/logout', function(req, res){
@@ -106,8 +99,6 @@ router.get('/logout', function(req, res){
 });
 
 router.get('/feed', function(req, res, next) {	
-	// var userID = req.user._id;
-	// public
 
 	Post.find({'public':true}, function(err, posts, count) {
 		res.render( 'view', {'slug': posts.slug, 'posts': posts});
@@ -117,7 +108,6 @@ router.get('/feed', function(req, res, next) {
 router.get('/personal', function(req, res, next) {	
 	if (req.user == null) {
 		res.redirect('/');
-
 	}
 	else {
 		var userID = req.user._id;
@@ -132,7 +122,6 @@ router.get('/personal', function(req, res, next) {
 router.get('/view-posts/:slug', function(req, res, next) {
 	Post.find({'slug' : req.params.slug}, function(err, post, count) {
 		var canEdit = false;
-		// console.log("req.userd",req.user);
 
 		if (req.user !== undefined) {
 			console.log("inside1");
@@ -146,30 +135,18 @@ router.get('/view-posts/:slug', function(req, res, next) {
 			}
 		}
 		var authorID = post[0].author;
-		console.log(authorID);
 		
-		// User.find({'author' : ObjectId(userID)}, function(err, posts, count) {
-		// 	res.render( 'view', {'slug': posts.slug, 'posts': posts});
-		// });
-	
-
-	User.find({'_id':ObjectId(post[0].author)}, function(err, user, count) {
-		console.log(user);
-			// var authorName = user[0].username;
-			// console.log(postID);
-			console.log(user[0].username);
+		User.find({'_id':ObjectId(post[0].author)}, function(err, user, count) {
 			res.render('viewone', {slug: post.slug,'user':user,'post': post, 'canEdit': canEdit});
 
 		});
-
-});
+	});
 });
 
 
 router.get('/edit/:slug', function(req, res, next) {
 	if (req.user == null) {
 		res.redirect('/');
-
 	}
 	else {
 		Post.find({'slug' : req.params.slug}, function(err, post, count) {
@@ -207,7 +184,6 @@ router.get('/profile/', function(req, res, next) {
 	}
 });
 
-
 router.get('/profile/:username', function(req, res, next) {
 	if (req.user == null) {
 		res.redirect('/');
@@ -215,49 +191,37 @@ router.get('/profile/:username', function(req, res, next) {
 	else {
 		
 		var userID = req.user._id;
-		console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-
-		// console.log("postArr mid", postsArr);
-		// otherStuff();
-
-	var postsArr = [];
+		var postsArr = [];
 		Post.find({'author' : ObjectId(userID)}, function(err, posts, count) {
 
-			console.log("post", posts);
-
-			// postsArr = posts;
-			// console.log("postArr in", postsArr);
-
 			var contentArr = posts.map(function(post) {
-			return post.content;
+				return post.content;
 			});
-			console.log("contentArr in", contentArr);
 
 			if (contentArr.length !== 0) {
-			
+				
 				var wordsInEach = contentArr.map(function(str) {
-						return str.split(' ').length;
-					});
+					return str.split(' ').length;
+				});
 
 				var totalWords = wordsInEach.reduce(function(a, b){ 
-						return parseInt(a) + parseInt(b);
-					});
+					return parseInt(a) + parseInt(b);
+				});
 
 				var charsInEach = contentArr.map(function(str) {
-						return str.length;
-					});
+					return str.length;
+				});
 
 				var totalChars = charsInEach.reduce(function(a, b){ 
-						return parseInt(a) + parseInt(b);
-					});
+					return parseInt(a) + parseInt(b);
+				});
 
 				var moreThanTenWords = wordsInEach.filter(hasMoreThanTenWords);
-				console.log("moreThanTenWords in", moreThanTenWords);
 
 				var numPostsTenWords = moreThanTenWords.length;
 
 				function hasMoreThanTenWords(words) {
-						return words >= 10;
+					return words >= 10;
 				}
 
 			}
@@ -267,26 +231,17 @@ router.get('/profile/:username', function(req, res, next) {
 				var numPostsTenWords = 0;
 			}
 			
-
 			res.render('profile', {'user': req.user, 'totalWords':totalWords,
 				'totalChars':totalChars,'numPostsTenWords':numPostsTenWords} );
 
-
 		});
 
-
-		console.log("end");
-
-		
-		
 	} // else
 });
 
 router.get('/edit-profile', function(req, res, next) {
-
 	if (req.user == null) {
 		res.redirect('/');
-
 	}
 	else{
 		res.render('edit-bio', {'user': req.user});
@@ -301,8 +256,7 @@ router.post('/update-bio', function(req, res, next) {
 			var strURL = '/profile';
 			res.redirect(strURL);
 		});
-
-		
+	
 });
 
 
