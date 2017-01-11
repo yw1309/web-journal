@@ -37,16 +37,16 @@ var Post = new mongoose.Schema({
 ```
 
 ## Wireframes
-/journal/my-journal - page for showing user's journal
+/journal/my-journal - page for showing user's journal<br>
 <img src="https://github.com/yw1309/web-journal/blob/master/final-project/documentation/three.jpg" width="400" />
 
-/journal/my-journal/create - creating new entry
+/journal/my-journal/create - creating new entry<br>
 <img src="https://github.com/yw1309/web-journal/blob/master/final-project/documentation/one.jpg" width="400" />
 
-/journal/my-journal/slug - page for showing a specific post
+/journal/my-journal/slug - page for showing a specific post<br>
 <img src="https://github.com/yw1309/web-journal/blob/master/final-project/documentation/four.jpg" width="400" />
 
-/journal/my-journal/slug/edit - page to edit a specific post
+/journal/my-journal/slug/edit - page to edit a specific post<br>
 <img src="https://github.com/yw1309/web-journal/blob/master/final-project/documentation/two.jpg" width="400" />
 
 ## Site map
